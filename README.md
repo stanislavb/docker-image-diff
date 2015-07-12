@@ -22,5 +22,5 @@ make build
 Run it from Docker Hub
 ----------------------
 ```
-docker run --rm -i -v /var/run:/var/run stanislavb/docker-image-diff python:3-onbuild
+docker run --rm -i -v /var/run/docker.sock:/var/run/docker.sock stanislavb/docker-image-diff python:3-onbuild
 ```
