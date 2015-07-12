@@ -27,9 +27,9 @@ def get_registry_tag(image, tag='latest', registry_url=None, ver=1):
 
 def get_local_image(image, tag='latest'):
     c = docker.Client(**docker.utils.kwargs_from_env())
-    images = c.images(name=args.image)
-    for image in images:
-        if '{}:{}'.format(image, tag) in image['RepoTags']:
+    images = c.images(name=image)
+    for image_info in images:
+        if '{}:{}'.format(image, tag) in image_info['RepoTags']:
             return image
     return None
 
