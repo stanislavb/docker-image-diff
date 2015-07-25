@@ -19,6 +19,8 @@ def get_registry_tag(image, tag='latest', registry_url=None, ver=1):
     image_url = urljoin(registry_url, image_endpoint)
     logger.info('GET {}'.format(image_url))
     response = requests.get(image_url)
+    if response.status_code == 404:
+        return None
     response.raise_for_status()
     content = response.json()
     logger.info('Got response: {}'.format(content))
@@ -46,6 +48,14 @@ if __name__ == "__main__":
         local = get_local_image(image, tag)
         remote = get_registry_tag(image, tag)
 
+        if remote is None:
+            print('Did not find {0}:{1} in Docker Hub'.format(image, tag),
+                  file=sys.stderr)
+            sys.exit(3)
+        if local is None:
+            print('Did not find {0}:{1} in local cache'.format(image, tag),
+                  file=sys.stderr)
+            sys.exit(2)
         if local[:8] == remote[:8]:
             print('Local and remote image IDs are the same', file=sys.stderr)
             sys.exit(0)
