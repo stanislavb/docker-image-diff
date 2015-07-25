@@ -5,7 +5,7 @@ Check if your locally cached image is the same as on Docker Hub. Takes image and
 
 Return codes:
 * 0 if images are the same
-* 1 on error (like non-existing image)
+* 1 on error (like registry being offline)
 * 2 if images differ or image not locally cached
 * 3 if image not found in registry
 
